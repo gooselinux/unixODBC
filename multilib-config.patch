@@ -1,0 +1,50 @@
+unixODBC's configure tends to pick the wrong libraries on a multilib
+machine.  Force it to use the location reported by /etc/profile.d/qt.sh
+which we invoke in the specfile (yeah, a crude hack...)
+
+
+diff -Naur unixODBC-2.2.14.orig/qt.m4 unixODBC-2.2.14/qt.m4
+--- unixODBC-2.2.14.orig/qt.m4	2008-06-30 11:13:44.000000000 -0400
++++ unixODBC-2.2.14/qt.m4	2008-11-25 12:01:47.000000000 -0500
+@@ -230,40 +230,7 @@
+ 
+   # Ensure we have the lib dir...
+   if test "x$qt_libraries" = "x" ; then
+-    # see if it is relative to the includes
+-    qt_tree="$qt_includes"
+-
+-	#
+-	# the cygwin dirhame only strips up to the first /
+-	#
+-
+-	case $host_os in
+-	  cygwin*) empty_dir="x/" ;;
+-	  *) empty_dir="x" ;;
+-	esac
+-
+-    while test "x$qt_tree" != $empty_dir ; do
+-      # first go around will fail...
+-      if expr "$QTVERSION" '>=' "040000" > /dev/null ; then
+-        if ls $qt_tree/lib/libQt* > /dev/null 2> /dev/null ; then
+-          qt_libraries=$qt_tree/lib
+-          break
+-        else
+-          # lop off tail of path
+-          dnl not as portable as it should be...
+-          qt_tree="`dirname $qt_tree`"
+-	fi
+-      else
+-        if ls $qt_tree/lib/libqt* > /dev/null 2> /dev/null ; then
+-          qt_libraries=$qt_tree/lib
+-          break
+-        else
+-          # lop off tail of path
+-          dnl not as portable as it should be...
+-          qt_tree="`dirname $qt_tree`"
+-	fi
+-      fi
+-    done
++    qt_libraries="$QTLIB"
+   fi  
+ 
+   # Use QTVERSION and gotthread to set libs we need...

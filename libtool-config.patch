@@ -1,0 +1,55 @@
+unixODBC doesn't actually succeed if you try to build with the system libltdl.
+Take out code that expects libltdl to exist locally.
+
+
+diff -Naur unixODBC-2.2.14.orig/Makefile.am unixODBC-2.2.14/Makefile.am
+--- unixODBC-2.2.14.orig/Makefile.am	2008-09-02 08:29:31.000000000 -0400
++++ unixODBC-2.2.14/Makefile.am	2009-02-15 22:27:55.000000000 -0500
+@@ -3,7 +3,6 @@
+ 	log \
+ 	lst \
+ 	ini \
+-	libltdl \
+ 	odbcinst \
+ 	DriverManager \
+ 	odbcinstQ \
+diff -Naur unixODBC-2.2.14.orig/configure.in unixODBC-2.2.14/configure.in
+--- unixODBC-2.2.14.orig/configure.in	2008-11-19 11:08:40.000000000 -0500
++++ unixODBC-2.2.14/configure.in	2009-02-16 00:45:22.000000000 -0500
+@@ -165,27 +165,12 @@
+ INCLTDL=""
+ LIBLTDL=""
+ 
+-AC_MSG_CHECKING( Have we enabled using RTLD_GROUP )
+-if test "x$rtldgroup" = "xtrue"; then
+-AC_MSG_RESULT( yes )
+-AC_LIBLTDL_CONVENIENCE
+-else
+-AC_MSG_RESULT( no );
+-AC_LIBLTDL_CONVENIENCE_G
+-fi
+-
+ dnl Check for dlopen support
+ AC_LIBTOOL_DLOPEN
+ 
+-dnl for cygwin support
+-AC_LIBTOOL_WIN32_DLL
+-
+ dnl Configure libtool
+ AM_PROG_LIBTOOL
+ 
+-dnl Configure libltdl
+-AC_CONFIG_SUBDIRS(libltdl)
+-
+ use_builtin_libtool="no"
+ 
+ dnl override the libtool lines if we use the system libs
+@@ -517,7 +502,7 @@
+ AM_CONDITIONAL(DRIVERS, test "x$drivers" = "xtrue" )
+ AM_CONDITIONAL(FDB, test "x$fdb" = "xtrue" )
+ AM_CONDITIONAL(QNX, test "x$qnx" = "xtrue" )
+-AM_CONDITIONAL(WITHLT, test "x$use_builtin_libtool" = "xyes" )
++AM_CONDITIONAL(WITHLT, test "x$use_builtin_libtool" = "xno" )
+ AM_CONDITIONAL(ODBCTRACE, test "x$odbctrace" = "xtrue" )
+ 
+ dnl This blows up due to what I think is a bug in automake 1.6.3

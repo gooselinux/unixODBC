@@ -1,0 +1,253 @@
+Set the major .so version to 2 for all unixODBC shared libraries, to reflect
+the incompatible ABI changes in 2.2.14.
+
+
+diff -Naur unixODBC-2.2.14.orig/configure.in unixODBC-2.2.14/configure.in
+--- unixODBC-2.2.14.orig/configure.in	2008-11-19 11:08:40.000000000 -0500
++++ unixODBC-2.2.14/configure.in	2009-02-16 11:56:53.000000000 -0500
+@@ -546,7 +546,7 @@
+ dnl This is the unixODBC source tree
+ AC_DEFINE(UNIXODBC_SOURCE)
+ 
+-LIB_VERSION="1:0:0"
++LIB_VERSION="2:0:0"
+ AC_SUBST(LIB_VERSION)
+ 
+ AC_OUTPUT( Makefile \
+diff -Naur unixODBC-2.2.14.orig/DRVConfig/Mimer/Makefile.am unixODBC-2.2.14/DRVConfig/Mimer/Makefile.am
+--- unixODBC-2.2.14.orig/DRVConfig/Mimer/Makefile.am	2008-06-17 06:14:07.000000000 -0400
++++ unixODBC-2.2.14/DRVConfig/Mimer/Makefile.am	2009-02-16 11:59:31.000000000 -0500
+@@ -2,7 +2,7 @@
+ 
+ INCLUDES = -I@top_srcdir@/include $(LTDLINCL)
+ 
+-libmimerS_la_LDFLAGS = -no-undefined -version-info 1:0:0 -module
++libmimerS_la_LDFLAGS = -no-undefined -version-info $(LIB_VERSION) -module
+ 
+ DEFS = -DUNIXODBC @DEFS@
+ 
+diff -Naur unixODBC-2.2.14.orig/DRVConfig/MiniSQL/Makefile.am unixODBC-2.2.14/DRVConfig/MiniSQL/Makefile.am
+--- unixODBC-2.2.14.orig/DRVConfig/MiniSQL/Makefile.am	2008-06-17 06:14:17.000000000 -0400
++++ unixODBC-2.2.14/DRVConfig/MiniSQL/Makefile.am	2009-02-16 11:59:27.000000000 -0500
+@@ -2,7 +2,7 @@
+ 
+ INCLUDES = -I@top_srcdir@/include $(LTDLINCL)
+ 
+-libodbcminiS_la_LDFLAGS = -no-undefined  -version-info 1:0:0 -module
++libodbcminiS_la_LDFLAGS = -no-undefined  -version-info $(LIB_VERSION) -module
+ 
+ DEFS = -DUNIXODBC @DEFS@
+ 
+diff -Naur unixODBC-2.2.14.orig/DRVConfig/MySQL/Makefile.am unixODBC-2.2.14/DRVConfig/MySQL/Makefile.am
+--- unixODBC-2.2.14.orig/DRVConfig/MySQL/Makefile.am	2008-06-17 06:14:23.000000000 -0400
++++ unixODBC-2.2.14/DRVConfig/MySQL/Makefile.am	2009-02-16 11:59:50.000000000 -0500
+@@ -2,7 +2,7 @@
+ 
+ INCLUDES = -I@top_srcdir@/include $(LTDLINCL)
+ 
+-libodbcmyS_la_LDFLAGS = -no-undefined  -version-info 1:0:0 -module
++libodbcmyS_la_LDFLAGS = -no-undefined  -version-info $(LIB_VERSION) -module
+ 
+ DEFS = -DUNIXODBC @DEFS@
+ 
+diff -Naur unixODBC-2.2.14.orig/DRVConfig/Oracle/Makefile.am unixODBC-2.2.14/DRVConfig/Oracle/Makefile.am
+--- unixODBC-2.2.14.orig/DRVConfig/Oracle/Makefile.am	2008-06-17 06:14:29.000000000 -0400
++++ unixODBC-2.2.14/DRVConfig/Oracle/Makefile.am	2009-02-16 11:59:07.000000000 -0500
+@@ -2,7 +2,7 @@
+ 
+ INCLUDES = -I@top_srcdir@/include $(LTDLINCL)
+ 
+-liboraodbcS_la_LDFLAGS = -no-undefined  -version-info 1:0:0 -module
++liboraodbcS_la_LDFLAGS = -no-undefined  -version-info $(LIB_VERSION) -module
+ 
+ DEFS = -DUNIXODBC @DEFS@
+ 
+diff -Naur unixODBC-2.2.14.orig/DRVConfig/PostgreSQL/Makefile.am unixODBC-2.2.14/DRVConfig/PostgreSQL/Makefile.am
+--- unixODBC-2.2.14.orig/DRVConfig/PostgreSQL/Makefile.am	2008-06-17 06:14:35.000000000 -0400
++++ unixODBC-2.2.14/DRVConfig/PostgreSQL/Makefile.am	2009-02-16 11:59:01.000000000 -0500
+@@ -2,7 +2,7 @@
+ 
+ INCLUDES = -I@top_srcdir@/include $(LTDLINCL)
+ 
+-libodbcpsqlS_la_LDFLAGS = -no-undefined  -version-info 1:0:0 -module
++libodbcpsqlS_la_LDFLAGS = -no-undefined  -version-info $(LIB_VERSION) -module
+ 
+ DEFS = -DUNIXODBC @DEFS@
+ 
+diff -Naur unixODBC-2.2.14.orig/DRVConfig/drvcfg1/Makefile.am unixODBC-2.2.14/DRVConfig/drvcfg1/Makefile.am
+--- unixODBC-2.2.14.orig/DRVConfig/drvcfg1/Makefile.am	2008-06-17 06:14:40.000000000 -0400
++++ unixODBC-2.2.14/DRVConfig/drvcfg1/Makefile.am	2009-02-16 12:00:00.000000000 -0500
+@@ -2,7 +2,7 @@
+ 
+ INCLUDES = -I@top_srcdir@/include $(LTDLINCL)
+ 
+-libodbcdrvcfg1S_la_LDFLAGS = -no-undefined  -version-info 1:0:0 -module
++libodbcdrvcfg1S_la_LDFLAGS = -no-undefined  -version-info $(LIB_VERSION) -module
+ 
+ DEFS = -DUNIXODBC @DEFS@
+ 
+diff -Naur unixODBC-2.2.14.orig/DRVConfig/drvcfg2/Makefile.am unixODBC-2.2.14/DRVConfig/drvcfg2/Makefile.am
+--- unixODBC-2.2.14.orig/DRVConfig/drvcfg2/Makefile.am	2008-06-17 06:14:45.000000000 -0400
++++ unixODBC-2.2.14/DRVConfig/drvcfg2/Makefile.am	2009-02-16 11:58:39.000000000 -0500
+@@ -2,7 +2,7 @@
+ 
+ INCLUDES = -I@top_srcdir@/include $(LTDLINCL)
+ 
+-libodbcdrvcfg2S_la_LDFLAGS = -no-undefined  -version-info 1:0:0 -module
++libodbcdrvcfg2S_la_LDFLAGS = -no-undefined  -version-info $(LIB_VERSION) -module
+ 
+ DEFS = -DUNIXODBC @DEFS@
+ 
+diff -Naur unixODBC-2.2.14.orig/DRVConfig/esoob/Makefile.am unixODBC-2.2.14/DRVConfig/esoob/Makefile.am
+--- unixODBC-2.2.14.orig/DRVConfig/esoob/Makefile.am	2008-06-17 06:14:50.000000000 -0400
++++ unixODBC-2.2.14/DRVConfig/esoob/Makefile.am	2009-02-16 11:59:41.000000000 -0500
+@@ -2,7 +2,7 @@
+ 
+ INCLUDES = -I@top_srcdir@/include $(LTDLINCL)
+ 
+-libesoobS_la_LDFLAGS = -no-undefined  -version-info 1:0:0 -module
++libesoobS_la_LDFLAGS = -no-undefined  -version-info $(LIB_VERSION) -module
+ 
+ DEFS = -DUNIXODBC @DEFS@
+ 
+diff -Naur unixODBC-2.2.14.orig/DRVConfig/nn/Makefile.am unixODBC-2.2.14/DRVConfig/nn/Makefile.am
+--- unixODBC-2.2.14.orig/DRVConfig/nn/Makefile.am	2008-06-17 06:14:56.000000000 -0400
++++ unixODBC-2.2.14/DRVConfig/nn/Makefile.am	2009-02-16 11:59:18.000000000 -0500
+@@ -2,7 +2,7 @@
+ 
+ INCLUDES = -I@top_srcdir@/include $(LTDLINCL)
+ 
+-libodbcnnS_la_LDFLAGS = -no-undefined  -version-info 1:0:0 -module
++libodbcnnS_la_LDFLAGS = -no-undefined  -version-info $(LIB_VERSION) -module
+ 
+ DEFS = -DUNIXODBC @DEFS@
+ 
+diff -Naur unixODBC-2.2.14.orig/DRVConfig/oplodbc/Makefile.am unixODBC-2.2.14/DRVConfig/oplodbc/Makefile.am
+--- unixODBC-2.2.14.orig/DRVConfig/oplodbc/Makefile.am	2008-06-17 06:15:01.000000000 -0400
++++ unixODBC-2.2.14/DRVConfig/oplodbc/Makefile.am	2009-02-16 11:58:56.000000000 -0500
+@@ -2,7 +2,7 @@
+ 
+ INCLUDES = -I@top_srcdir@/include $(LTDLINCL)
+ 
+-liboplodbcS_la_LDFLAGS = -no-undefined  -version-info 1:0:0 -module
++liboplodbcS_la_LDFLAGS = -no-undefined  -version-info $(LIB_VERSION) -module
+ 
+ DEFS = -DUNIXODBC @DEFS@
+ 
+diff -Naur unixODBC-2.2.14.orig/DRVConfig/sapdb/Makefile.am unixODBC-2.2.14/DRVConfig/sapdb/Makefile.am
+--- unixODBC-2.2.14.orig/DRVConfig/sapdb/Makefile.am	2008-06-17 06:15:07.000000000 -0400
++++ unixODBC-2.2.14/DRVConfig/sapdb/Makefile.am	2009-02-16 11:59:12.000000000 -0500
+@@ -2,7 +2,7 @@
+ 
+ INCLUDES = -I@top_srcdir@/include $(LTDLINCL)
+ 
+-libsapdbS_la_LDFLAGS = -no-undefined  -version-info 1:0:0 -module
++libsapdbS_la_LDFLAGS = -no-undefined  -version-info $(LIB_VERSION) -module
+ 
+ DEFS = -DUNIXODBC @DEFS@
+ 
+diff -Naur unixODBC-2.2.14.orig/DRVConfig/tds/Makefile.am unixODBC-2.2.14/DRVConfig/tds/Makefile.am
+--- unixODBC-2.2.14.orig/DRVConfig/tds/Makefile.am	2008-06-17 06:15:20.000000000 -0400
++++ unixODBC-2.2.14/DRVConfig/tds/Makefile.am	2009-02-16 11:59:36.000000000 -0500
+@@ -2,7 +2,7 @@
+ 
+ INCLUDES = -I@top_srcdir@/include $(LTDLINCL)
+ 
+-libtdsS_la_LDFLAGS = -no-undefined  -version-info 1:0:0 -module
++libtdsS_la_LDFLAGS = -no-undefined  -version-info $(LIB_VERSION) -module
+ 
+ DEFS = -DUNIXODBC @DEFS@
+ 
+diff -Naur unixODBC-2.2.14.orig/DRVConfig/txt/Makefile.am unixODBC-2.2.14/DRVConfig/txt/Makefile.am
+--- unixODBC-2.2.14.orig/DRVConfig/txt/Makefile.am	2008-06-17 06:15:31.000000000 -0400
++++ unixODBC-2.2.14/DRVConfig/txt/Makefile.am	2009-02-16 11:59:55.000000000 -0500
+@@ -2,7 +2,7 @@
+ 
+ INCLUDES = -I@top_srcdir@/include $(LTDLINCL)
+ 
+-libodbctxtS_la_LDFLAGS = -no-undefined  -version-info 1:0:0 -module
++libodbctxtS_la_LDFLAGS = -no-undefined  -version-info $(LIB_VERSION) -module
+ 
+ DEFS = -DUNIXODBC @DEFS@
+ 
+diff -Naur unixODBC-2.2.14.orig/Drivers/MiniSQL/Makefile.am unixODBC-2.2.14/Drivers/MiniSQL/Makefile.am
+--- unixODBC-2.2.14.orig/Drivers/MiniSQL/Makefile.am	2008-06-17 06:16:11.000000000 -0400
++++ unixODBC-2.2.14/Drivers/MiniSQL/Makefile.am	2009-02-16 12:00:22.000000000 -0500
+@@ -196,6 +196,6 @@
+ 	sqlFreeEnv.c \
+ 	sqlFreeStmt.c 
+ 
+-libodbcmini_la_LDFLAGS = -no-undefined -version-info 1:0:0 \
++libodbcmini_la_LDFLAGS = -no-undefined -version-info $(LIB_VERSION) \
+ 	-L@msql_libraries@ -lmsql -module
+ 
+diff -Naur unixODBC-2.2.14.orig/Drivers/Postgre7.1/Makefile.am unixODBC-2.2.14/Drivers/Postgre7.1/Makefile.am
+--- unixODBC-2.2.14.orig/Drivers/Postgre7.1/Makefile.am	2008-06-17 12:09:03.000000000 -0400
++++ unixODBC-2.2.14/Drivers/Postgre7.1/Makefile.am	2009-02-16 12:02:30.000000000 -0500
+@@ -3,7 +3,7 @@
+ INCLUDES = -I@top_srcdir@/include
+ 
+ libodbcpsql_la_LDFLAGS = \
+-	-version-info 2:0:0 \
++	-version-info $(LIB_VERSION) \
+ 	-no-undefined \
+ 	$(LIBSOCKET) $(LIBNSL) \
+ 	-export-dynamic \
+diff -Naur unixODBC-2.2.14.orig/Drivers/PostgreSQL/Makefile.am unixODBC-2.2.14/Drivers/PostgreSQL/Makefile.am
+--- unixODBC-2.2.14.orig/Drivers/PostgreSQL/Makefile.am	2008-06-17 06:16:48.000000000 -0400
++++ unixODBC-2.2.14/Drivers/PostgreSQL/Makefile.am	2009-02-16 12:00:05.000000000 -0500
+@@ -4,7 +4,7 @@
+ 
+ libodbcpsql_la_LDFLAGS = \
+ 	-no-undefined \
+-	-version-info 1:0:0 \
++	-version-info $(LIB_VERSION) \
+ 	$(LIBSOCKET) $(LIBNSL) \
+ 	-module
+ 
+diff -Naur unixODBC-2.2.14.orig/Drivers/nn/Makefile.am unixODBC-2.2.14/Drivers/nn/Makefile.am
+--- unixODBC-2.2.14.orig/Drivers/nn/Makefile.am	2008-06-17 06:16:54.000000000 -0400
++++ unixODBC-2.2.14/Drivers/nn/Makefile.am	2009-02-16 12:00:16.000000000 -0500
+@@ -2,7 +2,7 @@
+ 
+ INCLUDES = -I@top_srcdir@/include -I.
+ 
+-libnn_la_LDFLAGS = -no-undefined  -version-info 1:0:0 -module
++libnn_la_LDFLAGS = -no-undefined  -version-info $(LIB_VERSION) -module
+ 
+ DEFS = -DUNIXODBC @DEFS@
+ 
+diff -Naur unixODBC-2.2.14.orig/Drivers/template/Makefile.am unixODBC-2.2.14/Drivers/template/Makefile.am
+--- unixODBC-2.2.14.orig/Drivers/template/Makefile.am	2008-06-17 06:17:03.000000000 -0400
++++ unixODBC-2.2.14/Drivers/template/Makefile.am	2009-02-16 12:00:11.000000000 -0500
+@@ -4,7 +4,7 @@
+ 
+ DEFS = -DUNIXODBC @DEFS@
+ 
+-libtemplate_la_LDFLAGS = -no-undefined  -version-info 1:0:0 
++libtemplate_la_LDFLAGS = -no-undefined  -version-info $(LIB_VERSION) 
+ 
+ EXTRA_DIST = \
+ 	driver.h \
+diff -Naur unixODBC-2.2.14.orig/odbcinstQ/Makefile.am unixODBC-2.2.14/odbcinstQ/Makefile.am
+--- unixODBC-2.2.14.orig/odbcinstQ/Makefile.am	2008-06-30 09:21:04.000000000 -0400
++++ unixODBC-2.2.14/odbcinstQ/Makefile.am	2009-02-16 12:00:29.000000000 -0500
+@@ -1,6 +1,6 @@
+ libodbcinstQ_la_LDFLAGS = \
+ 		-no-undefined \
+-        -version-info 1:0:0 \
++        -version-info $(LIB_VERSION) \
+ 		-export-dynamic \
+ 		-export-symbols @srcdir@/odbcinstQ.exp \
+ 	    -module
+diff -Naur unixODBC-2.2.14.orig/odbcinstQ4/Makefile.am unixODBC-2.2.14/odbcinstQ4/Makefile.am
+--- unixODBC-2.2.14.orig/odbcinstQ4/Makefile.am	2008-11-18 08:32:58.000000000 -0500
++++ unixODBC-2.2.14/odbcinstQ4/Makefile.am	2009-02-16 12:00:36.000000000 -0500
+@@ -1,6 +1,6 @@
+ libodbcinstQ4_la_LDFLAGS = \
+ 		-no-undefined \
+-		-version-info 1:0:0 \
++		-version-info $(LIB_VERSION) \
+ 		-export-dynamic \
+ 		-export-symbols @srcdir@/odbcinstQ4.exp \
+ 		-module
